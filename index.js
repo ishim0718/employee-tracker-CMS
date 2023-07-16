@@ -24,6 +24,7 @@ function startInquirer() {
           'View All Employees',
           'Add Employee',
           'Update Employee Role',
+          'Update Employee Manager',
           'View All Roles',
           'Add Role',
           'View All Departments',
@@ -111,7 +112,7 @@ const viewEmployees = () => {
       throw err;
     }
     console.table(rows);
-    startInquirer;
+    startInquirer();
   })
 };
 
@@ -171,9 +172,12 @@ const addEmployee = () => {
                     if (err) {
                       throw err;
                     }
+                    console.log("\n");
                     console.log("Employee added");
+                    console.log("\n");
                     return viewEmployees();
                   });
+                  startInquirer();
                 });
             });
           });
@@ -227,6 +231,7 @@ const updateEmployeeManager = () => {
                 console.log("Employee updated");
                 return viewEmployees();
               });
+              startInquirer();
             });
         });
       });
@@ -245,7 +250,7 @@ const viewRoles = () => {
       throw err;
     }
     console.table(rows);
-    startInquirer;
+    startInquirer();
   })
 };
 
@@ -311,6 +316,7 @@ const addRole = () => {
                 console.log("Role added");
                 return viewRoles();
               });
+              startInquirer();
             });
           });
       });
@@ -326,7 +332,7 @@ const viewDepartments = () => {
       throw err;
     }
     console.table(rows);
-    startInquirer;
+    startInquirer();
   })
 };
 
@@ -339,7 +345,7 @@ const addDepartment = () => {
     }
   ])
     .then(answer => {
-      const params = [answer.name];
+      const params = answer.name;
       const sql = `INSERT INTO departments (name)
                   VALUES (?)`;
       db.query(sql, params, (err, rows) => {
@@ -349,6 +355,7 @@ const addDepartment = () => {
         console.log("Department added");
         return viewDepartments();
       })
+      startInquirer();
     });
 };
 
@@ -379,6 +386,7 @@ const removeEmployee = () => {
           console.log("Employee removed");
           return viewEmployees();
         });
+        startInquirer();
       });
   });
 };
@@ -410,6 +418,7 @@ const removeRole = () => {
           console.log("Role removed");
           return viewRoles();
         });
+        startInquirer();
       });
   });
 };
@@ -441,6 +450,7 @@ const removeDepartment = () => {
           console.log("Department removed");
           return viewDepartments();
         });
+        startInquirer();
       });
   });
 };
